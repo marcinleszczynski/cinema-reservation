@@ -1,0 +1,9 @@
+spring:
+    application:
+        name: cinema-reservation
+    cassandra:
+        contact-points: localhost
+        port: 9042
+        keyspace-name: reservations
+        schema-action: CREATE_IF_NOT_EXISTS
+        local-datacenter: datacenter1

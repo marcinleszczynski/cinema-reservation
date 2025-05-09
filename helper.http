@@ -1,0 +1,49 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+### POST create reservation1
+POST http://localhost:8080/reservation
+content-type: Application/json
+
+{
+  "movieId": "d3279b38-194c-4ef3-8969-35bfda9adc32",
+  "clientId": "8fd83a16-22f3-404a-9369-8c77be73788e",
+  "seats": [
+    {
+      "row": 1,
+      "column": 1
+    }
+  ]
+}
+
+### POST create reservation2
+POST http://localhost:8080/reservation
+content-type: Application/json
+
+{
+  "movieId": "d3279b38-194c-4ef3-8969-35bfda9adc32",
+  "clientId": "8fd83a16-22f3-404a-9369-8c77be73788f",
+  "seats": [
+    {
+      "row": 1,
+      "column": 1
+    }
+  ]
+}
+
+### PUT update reservation1
+PUT http://localhost:8080/reservation/e394b98f-4a4e-4ca3-a077-a285872d1ee3
+content-type: Application/json
+
+{
+  "seats": [
+    {
+      "row": 1,
+      "column": 2
+    }
+  ]
+}
+
+### GET reservation details
+GET http://localhost:8080/reservation/e394b98f-4a4e-4ca3-a077-a285872d1ee3
