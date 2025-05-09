@@ -56,7 +56,7 @@ jobs:
 
             - name: Run CQL scripts
               run: |
-                  docker exec -i cassandra-node1 cqlsh -f /schema.cql
+                  docker exec -i cassandra-node1 cqlsh -f schema.cql
 
             - name: build
               run: ./gradlew build --info
