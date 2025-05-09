@@ -54,9 +54,10 @@ jobs:
               run: |
                 sleep 60
 
-            - name: Run CQL scripts
+            - name: Initialize Cassandra Schema
               run: |
-                  docker exec -i cassandra-node1 cqlsh -f schema.cql
+                docker cp schema.cql cassandra-node1:/schema.cql
+                docker exec -i cassandra-node1 cqlsh -f /schema.cql
 
             - name: build
               run: ./gradlew build --info
