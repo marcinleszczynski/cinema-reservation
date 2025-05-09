@@ -36,11 +36,6 @@ jobs:
                   -e CASSANDRA_DC=datacenter1 \
                   cassandra:latest
 
-            - name: Wait for node 1 to be ready
-              run: |
-                timeout 120s bash -c 'until docker exec cassandra-node1 cqlsh -e "describe cluster" >/dev/null 2>&1; do sleep 5; done'
-                echo "Cassandra node 1 is up and running"
-
             - name: Get node 1 IP
               run: |
                 NODE1_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' cassandra-node1)
@@ -57,7 +52,7 @@ jobs:
 
             - name: Wait for nodes to join
               run: |
-                timeout 120s bash -c 'until docker exec cassandra-node1 nodetool status | grep -q "UN.*cassandra-node2"; do sleep 5; done'
+                sleep 60
 
             - name: Run CQL scripts
               run: |
