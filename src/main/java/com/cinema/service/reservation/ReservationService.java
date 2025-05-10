@@ -7,14 +7,12 @@ import com.cinema.service.movie.MovieService;
 import com.cinema.service.seat.ReservedSpotService;
 import com.cinema.service.utils.LockUtils;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 import static com.cinema.service.seat.mapper.SeatMapper.map;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ReservationService {
@@ -24,7 +22,6 @@ public class ReservationService {
     private final MovieService movieService;
 
     public void makeReservation(MakeReservationRequestDto request) {
-        log.info("MOVIE ID: {}", request.movieId());
         synchronized (LockUtils.lockFor(request.movieId())) {
             reservedSpotService.ensureSpotsAreFreeOrTakenBy(request.movieId(), request.seats(), null);
             var reservation = crud.createReservation(request);
@@ -34,7 +31,6 @@ public class ReservationService {
 
     public void updateReservation(UUID reservationId, UpdateReservationRequestDto request) {
         var reservation = crud.findById(reservationId);
-        log.info("RESERVATION: {}", reservation);
         reservedSpotService.ensureSpotsAreFreeOrTakenBy(reservation.getMovieId(), request.seats(), reservationId);
         reservedSpotService.removeReservedSpotsByReservationId(reservationId);
         reservedSpotService.updateReservedSpots(request, reservation);

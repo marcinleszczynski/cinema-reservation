@@ -5,15 +5,14 @@ import com.cinema.controller.dto.UpdateReservationRequestDto;
 import com.cinema.dao.model.Reservation;
 import com.cinema.dao.model.ReservedSpot;
 import com.cinema.dao.repository.ReservedSpotRepository;
+import com.cinema.service.exception.SpotTakenException;
 import com.cinema.service.seat.dto.SeatDto;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ReservedSpotService {
@@ -57,13 +56,12 @@ public class ReservedSpotService {
                 .map(reservedSpot -> new SeatDto(reservedSpot.getRow(), reservedSpot.getColumn()))
                 .anyMatch(seats::contains);
         if (isAtLeastOneSpotTaken) {
-            throw new IllegalStateException("At least one spot is already taken");
+            throw new SpotTakenException("At least one spot is already taken");
         }
     }
 
     public void removeReservedSpotsByReservationId(UUID reservationId) {
         var seats = reservedSpotRepository.findByReservationId(reservationId);
-        log.info("SEATS: {}", seats);
         reservedSpotRepository.deleteAll(seats);
     }
 }

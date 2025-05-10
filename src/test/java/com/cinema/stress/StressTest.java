@@ -6,7 +6,6 @@ import com.cinema.dao.repository.ReservationRepository;
 import com.cinema.dao.repository.ReservedSpotRepository;
 import com.cinema.service.reservation.ReservationService;
 import com.cinema.service.seat.dto.SeatDto;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +23,6 @@ import static com.cinema.stress.Mocks.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@Slf4j
 @SpringBootTest
 public class StressTest {
 
