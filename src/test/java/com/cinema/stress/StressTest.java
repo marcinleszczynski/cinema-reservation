@@ -76,7 +76,7 @@ public class StressTest {
     public void stressTest2() {
         int rows = 5;
         int columns = 15;
-        var random = new Random(42);
+        var random = new Random();
         var seatList = new ArrayList<SeatDto>();
         IntStream.range(0, rows)
             .forEach(i -> {

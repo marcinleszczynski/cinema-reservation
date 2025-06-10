@@ -1,4 +1,4 @@
-CREATE KEYSPACE reservations WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1};
+CREATE KEYSPACE reservations WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 2};
 USE reservations;
 
 CREATE TABLE movie (
@@ -33,3 +33,6 @@ CREATE TABLE reserved_spot (
 CREATE INDEX ON reservation(id);
 CREATE INDEX ON reserved_spot(reservation_id);
 CREATE INDEX ON movie(id);
+
+INSERT INTO movie (id, name, date_of_movie, creation_timestamp, modification_timestamp)
+VALUES (d3279b38-194c-4ef3-8969-35bfda9adc32, 'minecraft', null, null, null);

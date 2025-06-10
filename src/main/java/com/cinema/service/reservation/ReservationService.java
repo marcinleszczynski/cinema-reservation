@@ -21,19 +21,21 @@ public class ReservationService {
     private final ReservedSpotService reservedSpotService;
     private final MovieService movieService;
 
-    public void makeReservation(MakeReservationRequestDto request) {
+    public UUID makeReservation(MakeReservationRequestDto request) {
         synchronized (LockUtils.lockFor(request.movieId())) {
             reservedSpotService.ensureSpotsAreFreeOrTakenBy(request.movieId(), request.seats(), null);
             var reservation = crud.createReservation(request);
             reservedSpotService.createReservedSpots(request, reservation.getId());
+            return reservation.getId();
         }
     }
 
-    public void updateReservation(UUID reservationId, UpdateReservationRequestDto request) {
+    public UUID updateReservation(UUID reservationId, UpdateReservationRequestDto request) {
         var reservation = crud.findById(reservationId);
         reservedSpotService.ensureSpotsAreFreeOrTakenBy(reservation.getMovieId(), request.seats(), reservationId);
         reservedSpotService.removeReservedSpotsByReservationId(reservationId);
         reservedSpotService.updateReservedSpots(request, reservation);
+        return reservation.getId();
     }
 
     public ReservationDetailsDto getReservationDetails(UUID reservationId) {

@@ -20,17 +20,15 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @PostMapping
-    public ResponseEntity<Void> makeReservation(@RequestBody MakeReservationRequestDto request) {
+    public ResponseEntity<UUID> makeReservation(@RequestBody MakeReservationRequestDto request) {
         log.info("Making reservation for movie with id: {}", request.movieId());
-        reservationService.makeReservation(request);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(reservationService.makeReservation(request));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateReservation(@PathVariable UUID id, @RequestBody UpdateReservationRequestDto request) {
+    public ResponseEntity<UUID> updateReservation(@PathVariable UUID id, @RequestBody UpdateReservationRequestDto request) {
         log.info("Updating reservation with id {}", id);
-        reservationService.updateReservation(id, request);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(reservationService.updateReservation(id, request));
     }
 
     @GetMapping("/{id}")
