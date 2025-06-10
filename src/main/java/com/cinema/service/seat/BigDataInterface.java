@@ -45,24 +45,24 @@ public class BigDataInterface {
                     System.out.println("Choose movie:");
                     movies.forEach(id -> {
                         var index = movies.indexOf(id);
-                        System.out.printf("    %s. %s", index, id);
+                        System.out.printf("    %s. %s\n", index+1, id);
                     });
                     var chosenMovie = chooseValidOption(movies.size());
                     var chosenSeat = getSeatInput();
-                    var requestBody = String.format("{\"movieId\": \"%s\", \"clientId\": \"%s\", \"seats\": [{\"row\": %s, \"column\": %s}]}", chosenMovie, CLIENT_ID, chosenSeat.row(), chosenSeat.column());
+                    var requestBody = String.format("{\"movieId\": \"%s\", \"clientId\": \"%s\", \"seats\": [{\"row\": %s, \"column\": %s}]}", movies.get(chosenMovie - 1), CLIENT_ID, chosenSeat.row(), chosenSeat.column());
                     var request = HttpRequest.newBuilder()
                             .uri(URI.create("http://localhost:8080/reservation"))
                             .header("Content-Type", "application/json")
                             .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                             .build();
                     var response = client.send(request, HttpResponse.BodyHandlers.ofString());
-                    reservations.add(UUID.fromString(response.body()));
+                    reservations.add(UUID.fromString(response.body().substring(1, response.body().length() - 1)));
                 }
                 case 2 -> {
                     System.out.println("Choose reservation:");
                     reservations.forEach(id -> {
                         var index = reservations.indexOf(id);
-                        System.out.printf("    %s. %s", index, id);
+                        System.out.printf("    %s. %s\n", index+1, id);
                     });
                     var chosenReservation = chooseValidOption(reservations.size());
                     var chosenSeat = getSeatInput();
@@ -78,11 +78,11 @@ public class BigDataInterface {
                     System.out.println("Choose reservation:");
                     reservations.forEach(id -> {
                         var index = reservations.indexOf(id);
-                        System.out.printf("    %s. %s", index, id);
+                        System.out.printf("    %s. %s\n", index+1, id);
                     });
                     var chosenReservation = chooseValidOption(reservations.size());
                     var request = HttpRequest.newBuilder()
-                            .uri(URI.create(String.format("http://localhost:8080/reservation/%s", chosenReservation)))
+                            .uri(URI.create(String.format("http://localhost:8080/reservation/%s", reservations.get(chosenReservation - 1))))
                             .header("Content-Type", "application/json")
                             .GET()
                             .build();

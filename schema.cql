@@ -36,3 +36,9 @@ CREATE INDEX ON movie(id);
 
 INSERT INTO movie (id, name, date_of_movie, creation_timestamp, modification_timestamp)
 VALUES (d3279b38-194c-4ef3-8969-35bfda9adc32, 'minecraft', null, null, null);
+INSERT INTO movie (id, name, date_of_movie, creation_timestamp, modification_timestamp)
+VALUES (5bbe194d-a929-4b4b-a48d-222ac0d81b07, 'godfather', null, null, null);
+INSERT INTO movie (id, name, date_of_movie, creation_timestamp, modification_timestamp)
+VALUES (2307e68d-d264-4072-a58e-8a691d595d6b, 'pulp fiction', null, null, null);
+INSERT INTO movie (id, name, date_of_movie, creation_timestamp, modification_timestamp)
+VALUES (c0c4808a-da6f-4f34-a9e0-6d90b757023f, 'bee movie', null, null, null);
